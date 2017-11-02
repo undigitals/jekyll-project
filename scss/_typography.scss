@@ -1,0 +1,61 @@
+h1{
+	font-weight:700;
+	color:$navy--light;
+	font-size: 48px;
+	line-height:1;
+	margin:30px 0 20px;
+}
+
+
+h2{
+	color:$navy--light;
+}
+
+@media (max-width: 600px){
+	h1{
+		font-size:30px;
+		margin-top:30px;
+	}
+}
+
+a{
+	color:$green;
+	transition: color 0.3s;
+
+	&:hover{
+		color:$orange;
+		transition-duration:0s; 
+	}
+}
+
+p, li{
+	font-size: 18px;
+	line-height: 1.5;
+}
+
+p{
+	margin-top:0;
+	margin-bottom:20px;
+}
+
+.small {
+	font-size:12px;
+}
+
+.embed-code {
+	padding:5px;
+	font-family: courier;
+}
+
+@media (max-width: 1000px) {
+	p, li{
+		font-size:16px;
+	}
+}
+
+@media (max-width: 700px) {
+	p, li{
+		font-size:14px;
+	}
+}
+

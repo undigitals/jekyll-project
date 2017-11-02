@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Online amplitude modulation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	
+				<meta name="twitter:card" content="summary_large_image">
+				<meta name="twitter:site" content="@AcademoOrg">
+				<meta name="twitter:title" content="Amplitude Modulation">
+				<meta name="twitter:description" content="An interactive demo which enables you to both see and hear the result of multiplying a sine wave with a cosine amplitude envelope.">
+				<meta name="twitter:image" content="https://academo.org/demos/amplitude-modulation/twitter-card.png">
+				<meta property="og:url"	content="https://academo.org/demos/amplitude-modulation/" />
+				<meta property="og:site_name" content="Academo.org"/>
+				<meta property="og:title" content="Amplitude Modulation"/>
+				<meta property="og:description" content="An interactive demo which enables you to both see and hear the result of multiplying a sine wave with a cosine amplitude envelope."/>
+				<meta property="og:image" content="https://academo.org/demos/amplitude-modulation/facebook-og.png" />
+				<meta property="og:image:width" content="1200" /> 
+				<meta property="og:image:height" content="630" />
+				<style type="text/css" class='demo-specific-styles'>
+.grid-background {
+  fill: #ddd;
+}
+.grid line, .axis line {
+  stroke: #333;
+  stroke-opacity: .15;
+}
+.grid .minor line {
+  stroke-opacity: .15;
+}
+.grid text {
+  display: none;
+}
+.axis line {
+  stroke: #000;
+}
+.axis path,
+.grid path {
+  display: none;
+}
+.axis text { 
+	font-size: 13px;
+}
+				</style>
+	
+ 
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+</head>
+
+<body class='body--shaded '>
+
+	<div class="header">
+		<div class="header-upper">
+			<div class="header-inner">
+				<a class="logo" href="/">Umid Negmatullayev</a>
+				<ul class="nav nav--primary">
+					<li><a class="" href="/about/">About</a></li>
+					<li><a class="" href="/search/">Search</a></li>
+					<li><a class="" href="/contact/">Contact</a></li>
+					<li class="social--twitter"><a target='_blank' href="https://twitter.com/AcademoOrg"><i class="fa fa-twitter"></i></a></li>
+					<li class="social--facebook"><a target='_blank' href="https://facebook.com/academo.org"><i class="fa fa-facebook"></i></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="header-lower">
+			<div class="header-inner">
+				<ul class="nav nav--secondary">
+					<li><a class="mobile-show " href="/demos/">Browse all demos</a></li>
+					<li><a class="mobile-hide active" href="/demos/functionPlotter/index.html">Function Plotter</a></li>
+                    <li><a class="mobile-hide " href="/engineering/">MoDem</a></li>
+                    <li><a class="mobile-hide " href="/engineering/">Multiplexers</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper">
+		<div class='sponsor-wrapper js-sponsor-wrapper'>
+		</div>
+		<div class="main">
+
+
+
+<div class="preamble">
+	<h1>Amplitude Modulation</h1>
+	<hr>
+	<p class="blurb">
+		An interactive demo which enables you to both see and hear the result of multiplying a sine wave with a cosine amplitude envelope.
+	</p>
+	<p class="tags">
+				<a href='/music'>Modulation</a>
+				<a href='/engineering'>Amplitude Modulation</a>
+				<a href='/physics/waves/'>Waves</a>
+				<a href='/engineering/signals/'>Signals</a>
+        
+    </p>
+    <hr>
+
+<form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">
+	<input type="hidden" name="img_val" id="img_val" value="" />
+</form>
+    <button type="submit" onclick="capture();">submit</button>
+
+    <hr>
+</div>
+
+<div id="demo"  class="">
+    
+</div>
+
+
+<div class="clearfix" id='ui-container'>
+    
+</div>
+
+
+
+<div class="demo-description">
+
+    <hr>
+
+    <p>
+	The demo above shows three waveforms. From top to bottom, they are coloured blue, red and purple, and are mathematically described by the following equations
+</p>
+
+\[ y_1 = \sin{(2\pi f_1 t)} \]
+\[ y_2 = 1 + A_2\cos{(2\pi f_2 t)} \]
+\[ y_{1\times2} = y_1 \times y_2 =  \sin{(2\pi f_1 t)} \left(1 + A_2\cos{(2\pi f_2 t)}\right) \]
+
+<p>
+	where \( f1 \) and \( f2 \) are the frequencies of each wave, \( A_2 \) is the amplitude of the second wave, and
+	 \( t \) is the time. The amplitude of the first wave is 1.
+</p>
+
+<p>
+	You can check the "Sound on/off" checkbox to hear what \( y_{1\times2} \) sounds like (this feature may not work in older browsers or Internet Explorer). You should be able to hear a note that has a frequency of \( f_1 \), that is going up and down in loudness at a rate of \( f_2 \). For example, if the value of \( f_2 \) is 1Hz, the volume should go to zero once every second.
+</p>
+
+<p>
+	The \( y_2\) waveform is acting as a modulator and creates an amplitude envelope. This means its magnitude is determining the magnitude of \( y_{1\times2} \). When the value of \( A_2 \) is zero, the modulator has a constant value of 1, and the line \( y_{1\times2} \) is exactly equal to \( y_1 \) meaning you will not hear any variation in loudness.
+</p>
+
+<p>
+	If you increase \( f_2 \) higher and higher, you may begin to hear two discernible frequencies, and the tone sounds a little like a dial tone. This can be explained by understanding that the trigonometric identity
+</p>
+
+\[ \sin{\left(\frac{x+y}{2}\right)}\cos{\left(\frac{x-y}{2}\right)}  =  \frac{1}{2} \left[\sin{(x)} + \sin{(y)}\right] \]
+
+<p>
+	allows us to write the equation for \( y_{1\times2} \) as a sum of sine waves, which is equivalent to playing two tones of different frequencies. The fact that rapidly modulating the amplitude of one wave results in a waveform identical to playing two notes of different frequencies is quite remarkable and for more information on such wave interference, please see our <a href="/demos/wave-interference-beat-frequency">wave interference and beat frequency</a> demo.
+</p>
+			
+	
+
+	
+	   
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'academo'; // required: replace example with your forum shortname
+
+            var disqus_config = function () {
+				this.page.url = 'https://academo.org/demos/amplitude-modulation/';
+				// this.page.identifier = 'a unique identifier for each page where Disqus is present';
+				// this.page.title = 'a unique title for each page where Disqus is present';
+		    };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+    	        
+ </div>
+
+ <div class="sidebar">
+	<h3>You might also be interested in</h3>
+ 	<hr>
+ 	<ul class="thumbnails">
+	 	<li class='sponsored-tile js-sponsored-tile'>	</li>
+ 	</ul>
+ </div>
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/js/all.js?v=1506008388"></script> 
+
+<script type="text/javascript" src="js/html2canvas.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.html2canvas.js"></script>
+		
+<script type="text/javascript">
+	function capture() {
+		$('#demo').html2canvas({
+			onrendered: function (canvas) {
+                //Set hidden field's value to image data (base-64 string)
+				$('#img_val').val(canvas.toDataURL("image/png"));
+                //Submit the form manually
+				document.getElementById("myForm").submit();
+			}
+		});
+	}
+</script>
+			
+					<script type="text/x-mathjax-config">
+						MathJax.Hub.Config({
+							TeX: {
+								equationNumbers: {
+									autoNumber: "AMS"
+								},
+							},
+							"HTML-CSS": {
+								styles: {
+									".MathJax_Display": {
+										"margin": "2.5em 0em",
+										// "width": "auto",
+										// "overflow-x": "scroll",
+										// "overflow-y": "hidden"
+									},
+									".MathJax a": {
+										"color": "#2C3E50",
+										"font-size": "80%"
+									}
+								}
+							}
+						});
+					</script>
+					<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" class='js-demo-external-library'></script>
+					<script src="/js/lib/AudioContextMonkeyPatch.js" class='js-demo-library'></script>
+					<script src="/js/lib/d3.v3.min.js" class='js-demo-library'></script>
+					<script id='codepen-script'>
+/* This code comes from Academo.org */
+var demo = new Demo({
+	ui: {
+		f1: {
+			title: "\\( f_{1} \\)",
+			value: 400,
+			// range: [230, 270],
+			range: [1, 500],
+			resolution: 0.1,
+			units: "Hz",
+			color: "rgb(66, 104, 180)"
+		},
+		f2: {
+			title: "\\( f_{2} \\)",
+			value: 6,
+			// range: [230, 270],
+			range: [1, 100],
+			resolution: 0.1,
+			units: "Hz",
+			color: "#d62728"
+		},
+		amplitude2:{
+			title: "\\( A_{2} \\)",
+			value: 1,
+			// range: [230, 270],
+			range: [0,1],
+			resolution: 0.01,
+			color: "#d62728"
+		},
+		zoom: {
+			title: "Zoom",
+			value: 1,
+			range: [1, 20],
+			resolution: 0.1,
+			input: "hidden",
+			color: "rgb(33, 203, 156)"
+		},
+		overlay: {
+			title: "Overlay waves",
+			value: false
+		},
+		sound: {
+			title: "Sound on/off",
+			value: false
+		}
+	},
+	// dataLength: 2000,
+	data: [],
+	defaultGain: 0.1,
+	init: function(){
+		this.updateZoomLevel();
+		//see http://bl.ocks.org/mbostock/3019563
+		this.margin = {top: 20, right: 20, bottom: 60, left: 20};
+		this.width = $("#demo").width() - this.margin.left - this.margin.right;
+		this.dataLength = this.width;
+		this.height = 0.67* $("#demo").width() - this.margin.top - this.margin.bottom;
+		var AudioContext = (window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.oAudioContext || window.msAudioContext);
+		if (typeof AudioContext !== "undefined") {
+		  this.audioContext = new AudioContext();
+		  this.gainNode1 = this.audioContext.createGain();
+		  this.gainNode2 = this.audioContext.createGain();
+		  this.gainNode1.gain.value = this.defaultGain;
+		  this.gainNode2.gain.value = this.defaultGain;
+		  this.oscillator1 = this.audioContext.createOscillator();
+		  this.oscillator1.type = 'sine';
+		  this.oscillator1.frequency.value = this.ui.f1.value;
+		  this.oscillator1.connect(this.gainNode1);
+		  this.oscillator1.start(0);
+		  this.oscillator2 = this.audioContext.createOscillator();
+		  this.oscillator2.type = 'sine';
+		  this.oscillator2.frequency.value = this.ui.f2.value;
+		  this.oscillator2.connect(this.gainNode2);
+		  this.oscillator2.start(0);
+		  // this.gainNode1.connect(this.audioContext.destination);
+		  this.gainNode2.connect(this.gainNode1.gain);
+		}
+		this.svg = d3.select("#demo")
+					.append("svg")
+					.attr("width", this.width + this.margin.left + this.margin.right)
+					.attr("height", this.height + this.margin.top + this.margin.bottom)
+					.append("g")
+						.attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+		this.path1 = this.svg.append("path")
+						.attr("stroke", "blue")
+						.attr("fill", "none");
+		this.path2 = this.svg.append("path")
+						.attr("stroke", "red")
+						.attr("fill", "none");
+		this.path12 = this.svg.append("path")
+						.attr("stroke", "rgb(150, 66, 180)")
+						.attr("fill", "none");
+		this.tScale = d3.scale.linear()
+					.domain([0, this.dataLength - 1])
+					.range(this.waveHorizontalExtent);
+		this.canvasXScale = d3.scale.linear()
+					.domain(this.waveHorizontalExtent)
+					.range([0,this.width]);
+		this.yScale = [0, -14];
+		this.canvasYScale = d3.scale.linear()
+					.domain(this.yScale)
+					.range([0,this.height]);
+		this.xAxis = d3.svg.axis()
+						.scale(this.canvasXScale)
+						.orient("bottom")
+						.ticks(10)
+						// .innerTickSize(-this.height)
+		this.yAxis = d3.svg.axis()
+						.scale(this.canvasYScale)
+						.orient("left")
+						.ticks(14)
+						.tickFormat("");
+		//for minor gridlines see http://bl.ocks.org/mbostock/4349486
+		 this.svg.append("g")
+		     .attr("class", "grid")
+		     .attr("transform", "translate(0," + this.height + ")")
+		     // .call(d3.svg.axis().scale(this.canvasXScale).ticks(20).tickSize(-300))
+		     .call(d3.svg.axis().scale(this.canvasXScale).ticks(10).tickSize(-this.height))
+		   .selectAll(".tick")
+		     .data(this.canvasXScale.ticks(10), function(d) { return d; })
+		   .exit()
+		     .classed("minor", true);
+		 this.svg.append("g")
+		     .attr("class", "x axis")
+		     .attr("transform", "translate(0," + this.height + ")")
+		     .call(this.xAxis);
+		 this.svg.append("g")
+		     .attr("class", "y axis")
+		     .call(this.yAxis.tickSize(-this.width));
+		 //axis labels
+		 this.svg.append("text")
+		     .attr("class", "x label")
+		     .attr("text-anchor", "middle")
+		     .attr("x", this.width/2)
+		     .attr("y", this.height + 50)
+		     .text("Time in seconds");
+		this.previousFrequency = 1;
+		this.lineFunction = d3.svg.line()
+		                         .x(function(d) { return this.canvasXScale(d.x); })
+		                        .y(function(d) { return this.canvasYScale(d.y); })
+		                         .interpolate("linear");
+		                         // .interpolate("basis");
+		this.update();
+		$(window).resize(function(){
+			this.resizeSVG();
+		}.bind(this));
+		if (typeof AudioContext !== "undefined") {
+			//needed to unmute ios
+			document.addEventListener('touchstart', function() {
+			  // create empty buffer
+			  var buffer = this.audioContext.createBuffer(1, 1, 22050);
+			  var source = this.audioContext.createBufferSource();
+			  source.buffer = buffer;
+			  // connect to output (your speakers)
+			  source.connect(this.audioContext.destination);
+			  // play the file
+			  source.noteOn(0);
+			}.bind(this), false);
+		}
+	},
+	update: function(e){
+		if (typeof AudioContext !== "undefined") {
+			if (this.ui.amplitude2.value > 1){
+				this.ui.amplitude2.value = 1;
+			}
+			this.gainNode2.gain.value = this.defaultGain * this.ui.amplitude2.value;
+			this.oscillator1.frequency.value = this.ui.f1.value;
+			this.oscillator2.frequency.value = this.ui.f2.value;
+			if (e == "sound"){
+				if (this.ui.sound.value == true){
+					this.gainNode1.connect(this.audioContext.destination);
+				} else {
+					this.gainNode1.disconnect();
+				}
+			}
+		}
+		if (e == "zoom"){
+			this.updateAxes();
+		}
+		this.data = [];
+		this.data1 = [];
+		this.data2 = [];
+		this.data12 = [];
+		this.updatePathData();
+		if (e == "overlay"){
+			var waveMargin = this.setWaveMargin(this.ui.overlay.value);
+			this.path2
+				.transition()
+				.duration(500)
+				.attr("transform", "translate(0 "+waveMargin+")")
+			this.path1
+				.transition()
+				.duration(500)
+				.attr("transform", "translate(0 "+-waveMargin+")")
+		}
+	},
+	updatePathData: function(){
+		this.data[0] = [];
+		this.data[1] = [];
+		this.data[2] = [];
+		for (i = 0; i < this.dataLength ; i++){
+			this.data[0][i] = { 
+				x: this.tScale(i),
+				y: this.sine(this.ui.f1.value,this.tScale(i),0) - 2
+			}
+			this.data[1][i] = {
+				x: this.tScale(i),
+				y: this.ui.amplitude2.value * this.cos(this.ui.f2.value,this.tScale(i), 0) - 5
+			}
+			this.data[2][i] = {
+				x: this.tScale(i),
+				y: this.product(this.ui.f1.value, 0, this.ui.f2.value, 0, this.tScale(i)) - 11
+			}
+		}
+		this.path1.attr("d", this.lineFunction(this.data[0]))
+		this.path2.attr("d", this.lineFunction(this.data[1]))
+		this.path12.attr("d", this.lineFunction(this.data[2]))
+	},
+	updateZoomLevel: function(){
+		this.waveHorizontalExtent = [-0.10/this.ui.zoom.value,0.10/this.ui.zoom.value];
+	},
+	updateAxes: function(){
+		this.updateZoomLevel();
+		this.tScale = d3.scale.linear()
+					.domain([0, this.dataLength - 1])
+					.range(this.waveHorizontalExtent);
+		this.canvasXScale = d3.scale.linear()
+					.domain(this.waveHorizontalExtent)
+					.range([0,this.width]);
+		// this.canvasYScale = d3.scale.linear()
+		// 			.domain(this.yScale)
+		// 			.range([100,0]);
+		this.xAxis.scale(this.canvasXScale);
+		this.svg.selectAll(".x.axis")
+		        .call(this.xAxis);
+		this.svg.selectAll(".grid")
+		    // .call(d3.svg.axis().scale(this.canvasXScale).ticks(20).tickSize(-300))
+		    .call(d3.svg.axis().scale(this.canvasXScale).ticks(10).tickSize(-this.height))
+		  .selectAll(".tick")
+		    .data(this.canvasXScale.ticks(10), function(d) { return d; })
+		  .exit()
+		    .classed("minor", true);
+	},
+	product: function(f1,phase1, f2, phase2, t){
+		// return this.sine(f1,t, phase1) * this.cos(f2,t, phase2);
+		return (1 + this.ui.amplitude2.value * this.cos(f2,t, phase1)) * this.sine(f1,t, phase1);
+	},
+	sine: function(f,t, phase){
+		return Math.sin(2*Math.PI*f*t + phase);
+	},
+	cos: function(f,t, phase){
+		return Math.cos(2*Math.PI*f*t + phase);
+	},
+	setTransitionDuration: function(value){
+		if (value === true){
+			return 1000;
+		} else {
+			return 0;
+		}
+	},
+	setWaveMargin: function(value){
+		if (value === true){
+			return this.canvasYScale(2);
+		} else {
+			return 0;
+		}
+	},
+	resizeSVG: function(){
+		this.width = $("#demo").width() - this.margin.left - this.margin.right;
+		this.dataLength = this.width;
+		d3.select("#demo svg").attr("width", $("#demo").width())
+		this.updateAxes();
+		d3.select(".y.axis")
+			.call(this.yAxis.tickSize(-this.width));
+		d3.select(".x.label")
+		    .attr("x", this.width/2)
+		this.updatePathData();
+	}
+});
+					</script>
+		    
+
+			<script>
+			    //ASSET SERVING
+			    var assetPath = "https://s3-us-west-2.amazonaws.com/academo-assets";
+
+			    $(document).trigger({
+			    	type: "scriptLoaded"
+			    });
+		    </script>
+
+	    
+
+	    
+	    
+
+
+	    
+
+	    
+
+
+
+	    <script>
+		    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		    	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		    	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		    if (window.location.host == 'academo.org') {
+		    	ga('create', 'UA-17960919-9', 'academo.org');
+		    	ga('send', 'pageview');
+		    }
+	    </script>
+		</div>
+	    <div class="push"></div>
+	    </div>
+	    <div class="footer">
+	    	<div class="footer-inner">
+		    	&copy; undigitals@gmail.com 2017. Source code available at <a>GitHub.com</a>
+	    	</div>
+	    </div> <!-- End of content -->
+	</body>
+</html>
+
+
+
+<!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/html2canvas.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.html2canvas.js"></script>
+
+<h2>Simple Implementation of html2canvas With JavaScript and PHP</h2>
+
+<form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">
+	<input type="hidden" name="img_val" id="img_val" value="" />
+</form>
+<table>
+	<tr>
+		<td colspan="2">
+			<table width="100%">
+				<tr>
+					<td>
+						<input type="submit" value="Take Screenshot Of Div Below" onclick="capture();" />
+					</td>
+					<td align="right">
+						<a href="http://www.kubilayerdogan.net?p=304" style="font-family: Tahoma; font-size: 10pt; font-weight: bold;">
+                            Documentation (Back to Site)</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top" style="padding: 10px;">
+            <b>Div:</b>
+		</td>
+		<td>
+			<div id="target">
+				<table cellpadding="10">
+					<tr>
+						<td colspan="2">
+                            This is sample implementation
+                        </td>
+					</tr>
+					<tr>
+						<td>
+                            It can hold form values:
+                        </td>
+						<td>
+							<input type="text" name="form_value" value="" placeholder="Try me" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+                            Simple Button Element:
+                        </td>
+						<td>
+							<button name="my_button">
+                                Clicking Me Useless</button>
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">
+                            Let's go with CSS:
+                        </td>
+						<td>
+							<div id="aside">
+                                <h3>Aside heading</h3>
+								<p>Duis autem vel eum iriure dolor in hendrerit!</p>
+							</div>
+							<div id="more">
+                                <h2>My first styled page</h2>
+								<p>Welcome to my styled page!</p>
+								<p>It lacks images, but at least it has style.</p>
+								<p>There should be more here, but I don't know what yet.</p>
+                                <address>
+                                    Made 5 April 2004
+                                    <br />
+                                    by myself.
+                                </address>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+                            Try Image:
+                        </td>
+						<td>
+							<img src="soc.jpeg" alt="SOC" />
+						</td>
+					</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript">
+	function capture() {
+		$('#target').html2canvas({
+			onrendered: function (canvas) {
+                //Set hidden field's value to image data (base-64 string)
+				$('#img_val').val(canvas.toDataURL("image/png"));
+                //Submit the form manually
+				document.getElementById("myForm").submit();
+			}
+		});
+	}
+</script>
+<style type="text/css">
+	#target {
+		border: 1px solid #CCC;
+		padding: 5px;
+		margin: 5px;
+	}
+	h2, h3 {
+		color: #003d5d;
+	}
+	p {
+		color:#AA00BB;
+	}
+	#more {
+		font-family: Verdana;
+		color: purple;
+		background-color: #d8da3d;
+	}
+</style>
+--->
